@@ -20,6 +20,8 @@ import org.ajoberstar.grgit.exception.GrgitException
 import org.ajoberstar.grgit.fixtures.GitTestUtil
 import org.ajoberstar.grgit.fixtures.MultiGitOpSpec
 
+import java.nio.file.Files
+
 class CloneOpSpec extends MultiGitOpSpec {
   File repoDir
 
@@ -135,9 +137,15 @@ class CloneOpSpec extends MultiGitOpSpec {
   def 'cloned repo can be deleted'() {
     given:
     def grgit = Grgit.clone(dir: repoDir, uri: remoteUri, refToCheckout: 'refs/heads/branch2')
+    GitTestUtil.repoFile(grgit, '1.txt') << '1'
+    grgit.add(patterns: ['1.txt'])
+    grgit.commit(message: 'commit')
     when:
     grgit.close()
     then:
-    repoDir.deleteDir()
+    Files.walk(repoDir.toPath())
+      .sorted(Comparator.comparing { it.nameCount }.reversed())
+      .forEach { Files.delete(it) }
+    // repoDir.deleteDir()
   }
 }

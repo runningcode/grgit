@@ -23,6 +23,8 @@ import org.junit.rules.TemporaryFolder
 
 import spock.lang.Specification
 
+import java.nio.file.Files
+
 class InitOpSpec extends Specification {
   @Rule TemporaryFolder tempDir = new TemporaryFolder()
 
@@ -49,9 +51,15 @@ class InitOpSpec extends Specification {
   def 'init repo can be deleted after being closed'() {
     given:
     def grgit = Grgit.init(dir: repoDir, bare: false)
+    GitTestUtil.repoFile(grgit, '1.txt') << '1'
+    grgit.add(patterns: ['1.txt'])
+    grgit.commit(message: 'commit')
     when:
     grgit.close()
     then:
-    repoDir.deleteDir()
+    Files.walk(repoDir.toPath())
+      .sorted(Comparator.comparing { it.nameCount }.reversed())
+      .forEach { Files.delete(it) }
+    // repoDir.deleteDir()
   }
 }

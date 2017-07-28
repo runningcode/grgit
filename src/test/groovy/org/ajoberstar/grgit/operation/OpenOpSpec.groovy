@@ -20,6 +20,7 @@ import java.nio.file.Files
 import org.ajoberstar.grgit.Commit
 import org.ajoberstar.grgit.Grgit
 import org.ajoberstar.grgit.Status
+import org.ajoberstar.grgit.fixtures.GitTestUtil
 import org.ajoberstar.grgit.fixtures.SimpleGitOpSpec
 import org.ajoberstar.grgit.exception.GrgitException
 
@@ -145,9 +146,15 @@ class OpenOpSpec extends SimpleGitOpSpec {
   def 'opened repo can be deleted after being closed'() {
     given:
     Grgit opened = Grgit.open(dir: repoDir('.').canonicalFile)
+    GitTestUtil.repoFile(opened, '1.txt') << '1'
+    opened.add(patterns: ['1.txt'])
+    opened.commit(message: 'commit')
     when:
     opened.close()
     then:
-    opened.repository.rootDir.deleteDir()
+    Files.walk(opened.repository.rootDir.toPath())
+      .sorted(Comparator.comparing { it.nameCount }.reversed())
+      .forEach { Files.delete(it) }
+    // opened.repository.rootDir.deleteDir()
   }
 }
