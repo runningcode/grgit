@@ -1,6 +1,6 @@
 org.ajoberstar.grgit
 org.ajoberstar.grgit.auth
-org.ajoberstar.grgit.exception
+org.ajoberstar.grgit.gradle
 org.ajoberstar.grgit.internal
 org.ajoberstar.grgit.operation
 org.ajoberstar.grgit.service
