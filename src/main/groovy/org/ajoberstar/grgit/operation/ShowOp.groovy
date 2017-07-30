@@ -85,6 +85,7 @@ class ShowOp implements Callable<CommitDiff> {
       List entries = detector.compute()
       Map entriesByType = entries.groupBy { it.changeType }
 
+      walk.close()
       return new CommitDiff(
         commit: commit,
         added: entriesByType[ChangeType.ADD].collect { it.newPath },
@@ -99,6 +100,7 @@ class ShowOp implements Callable<CommitDiff> {
       while (walk.next()) {
         added << walk.pathString
       }
+      walk.close()
       return new CommitDiff(
         commit: commit,
         added: added

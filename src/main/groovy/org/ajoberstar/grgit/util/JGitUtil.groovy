@@ -52,6 +52,17 @@ class JGitUtil {
     throw new AssertionError('Cannot instantiate this class.')
   }
 
+  // TODO in Groovy 2.5.0 AutoCloseable has a withCloseable, so this won't be needed
+  static {
+    RevWalk.metaClass.withCloseable { closure ->
+      try {
+        closure.call(delegate)
+      } finally {
+        delegate.close()
+      }
+    }
+  }
+
   /**
    * Resolves a JGit {@code ObjectId} using the given revision string.
    * @param repo the Grgit repository to resolve the object from
@@ -88,10 +99,11 @@ class JGitUtil {
    */
   static RevObject resolveRevObject(Repository repo, String revstr, boolean peel = false) {
     ObjectId id = resolveObject(repo, revstr)
-    RevWalk walk = new RevWalk(repo.jgit.repository)
     try {
-      RevObject rev = walk.parseAny(id)
-      return peel ? walk.peel(rev) : rev
+      new RevWalk(repo.jgit.repository).withCloseable { walk ->
+        RevObject rev = walk.parseAny(id)
+        return peel ? walk.peel(rev) : rev
+      }
     } catch (MissingObjectException e) {
       throw new GrgitException("Supplied object does not exist: ${revstr}", e)
     } catch (IOException e) {
@@ -107,10 +119,11 @@ class JGitUtil {
    * @throws GrgitException if the parents cannot be resolved
    */
   static Set<ObjectId> resolveParents(Repository repo, ObjectId id) {
-    RevWalk walk = new RevWalk(repo.jgit.repository)
-    RevCommit rev = walk.parseCommit(id)
-    return rev.parents.collect {
-      walk.parseCommit(it)
+    new RevWalk(repo.jgit.repository).withCloseable { walk ->
+      RevCommit rev = walk.parseCommit(id)
+      return rev.parents.collect {
+        walk.parseCommit(it)
+      }
     }
   }
 
@@ -134,8 +147,9 @@ class JGitUtil {
    * @throws GrgitException if the commit cannot be resolved
    */
   static Commit resolveCommit(Repository repo, ObjectId id) {
-    RevWalk walk = new RevWalk(repo.jgit.repository)
-    return convertCommit(walk.parseCommit(id))
+    new RevWalk(repo.jgit.repository).withCloseable { walk ->
+      return convertCommit(walk.parseCommit(id))
+    }
   }
 
   /**
@@ -185,21 +199,22 @@ class JGitUtil {
     Map props = [:]
     props.fullName = ref.name
     try {
-      RevWalk walk = new RevWalk(repo.jgit.repository)
-      RevTag rev = walk.parseTag(ref.objectId)
-      RevObject target = walk.peel(rev)
-      walk.parseBody(rev.object)
-      props.commit = convertCommit(target)
-      PersonIdent tagger = rev.taggerIdent
-      props.tagger = new Person(tagger.name, tagger.emailAddress)
-      props.fullMessage = rev.fullMessage
-      props.shortMessage = rev.shortMessage
+      new RevWalk(repo.jgit.repository).withCloseable { walk ->
+        RevTag rev = walk.parseTag(ref.objectId)
+        RevObject target = walk.peel(rev)
+        walk.parseBody(rev.object)
+        props.commit = convertCommit(target)
+        PersonIdent tagger = rev.taggerIdent
+        props.tagger = new Person(tagger.name, tagger.emailAddress)
+        props.fullMessage = rev.fullMessage
+        props.shortMessage = rev.shortMessage
 
-      Instant instant = rev.taggerIdent.when.toInstant()
-      ZoneId zone = Optional.ofNullable(rev.taggerIdent.timeZone)
+        Instant instant = rev.taggerIdent.when.toInstant()
+        ZoneId zone = Optional.ofNullable(rev.taggerIdent.timeZone)
         .map { it.toZoneId() }
         .orElse(ZoneOffset.UTC)
-      props.dateTime = ZonedDateTime.ofInstant(instant, zone)
+        props.dateTime = ZonedDateTime.ofInstant(instant, zone)
+      }
     } catch (IncorrectObjectTypeException e) {
       props.commit = resolveCommit(repo, ref.objectId)
     }
@@ -285,9 +300,10 @@ class JGitUtil {
    */
   static boolean isAncestorOf(Repository repo, Commit base, Commit tip) {
     org.eclipse.jgit.lib.Repository jgit = repo.jgit.repo
-    RevWalk revWalk = new RevWalk(jgit)
-    RevCommit baseCommit = revWalk.lookupCommit(jgit.resolve(base.id))
-    RevCommit tipCommit = revWalk.lookupCommit(jgit.resolve(tip.id))
-    return revWalk.isMergedInto(baseCommit, tipCommit)
+    new RevWalk(jgit).withCloseable { walk ->
+      RevCommit baseCommit = revWalk.lookupCommit(jgit.resolve(base.id))
+      RevCommit tipCommit = revWalk.lookupCommit(jgit.resolve(tip.id))
+      return revWalk.isMergedInto(baseCommit, tipCommit)
+    }
   }
 }
