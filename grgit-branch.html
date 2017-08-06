@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grgit-branch
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
+        <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--blue-grey-100">
+        <div class="container mdl-grid">
+          <article class="mdl-card mdl-cell mdl-cell--12-col">
+            <header class="mdl-card__title">
+              <h1 class="mdl-card__title-text">grgit-branch</h1>
+            </header>
+            <section class="mdl-card__supporting-text"><div class="sect1">
+<h2 id="_name">Name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>grgit-branch - List, create, or delete branches</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">Synopsis</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.current()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.list()
+grgit.branch.list(mode: &lt;mode&gt;, contains: &lt;commit&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.add(name: &lt;name&gt;, startPoint: &lt;startPoint&gt;, mode: &lt;mode&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.change(name: &lt;name&gt;, startPoint: &lt;startPoint&gt;, mode: &lt;mode&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.remove(names: [&lt;name&gt;, ...], force: &lt;boolean&gt;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>grgit.branch.current()</code></dt>
+<dd>
+<p>Returns the current <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
+</dd>
+<dt class="hdlist1"><code>grgit.branch.list()</code></dt>
+<dd>
+<p>Returns a list of branches (<a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>). The branches returned can be filtered using <code>mode</code> and <code>contains</code>.</p>
+</dd>
+<dt class="hdlist1"><code>grgit.branch.add(name: &lt;name&gt;, startPoint: &lt;startPoint&gt;, mode: &lt;mode&gt;)</code></dt>
+<dd>
+<p>Creates a new branch named <code>&lt;name&gt;</code> pointing at <code>&lt;startPoint&gt;</code>, possibly tracking a remote depending on <code>&lt;mode&gt;</code>. Returns the created <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
+</dd>
+<dt class="hdlist1"><code>grgit.branch.change(name: &lt;name&gt;, startPoint: &lt;startPoint&gt;, mode: &lt;mode&gt;)</code></dt>
+<dd>
+<p>Modify an existing branch named <code>&lt;name&gt;</code> pointing at <code>&lt;startPoint&gt;</code>, possibly tracking a remote depending on <code>&lt;mode&gt;</code>. Returns the modified <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
+</dd>
+<dt class="hdlist1"><code>grgit.branch.remove(names: [&lt;name&gt;, &#8230;&#8203;], force: &lt;boolean&gt;)</code></dt>
+<dd>
+<p>Removes one or more branches. Returns a <code>List&lt;String&gt;</code> of branch names removed.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">Options</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_list">list</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">mode</dt>
+<dd>
+<p>(<code>String</code>, default <code>local</code>) Must be one of <code>local</code>, <code>remote</code>, <code>all</code>.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>local</code></dt>
+<dd>
+<p>Only list local branches (i.e. those under <code>refs/heads</code>)</p>
+</dd>
+<dt class="hdlist1"><code>remote</code></dt>
+<dd>
+<p>Only list remote branches (i.e. those under <code>refs/remotes</code>)</p>
+</dd>
+<dt class="hdlist1"><code>all</code></dt>
+<dd>
+<p>List all branches</p>
+</dd>
+</dl>
+</div>
+</dd>
+<dt class="hdlist1">contains</dt>
+<dd>
+<p>(<code>Object</code>, default <code>null</code>) Only list branches which contain the specified commit.  (<code>Object</code>, default <code>null</code>) Start the new branch at this commit. For a more complete list of acceptable inputs, see <a href="grgit-resolve.html">grgit-resolve</a> (specifically the <code>toRevisionString</code> method).</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_or_change">add or change</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">name</dt>
+<dd>
+<p>(<code>String</code>, default <code>null</code>) Name of the branch</p>
+</dd>
+<dt class="hdlist1">startPoint</dt>
+<dd>
+<p>(<code>Object</code>, default <code>null</code>) Start the new branch at this commit. For a more complete list of acceptable inputs, see <a href="grgit-resolve.html">grgit-resolve</a> (specifically the <code>toRevisionString</code> method).</p>
+</dd>
+<dt class="hdlist1">mode</dt>
+<dd>
+<p>(<code>String</code>, default <code>null</code>) Must be one of <code>'track'</code> or <code>'no-track'</code> or <code>null</code></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>track</code></dt>
+<dd>
+<p>When creating a new branch, set up <code>branch.&lt;name&gt;.remote</code> and <code>branch.&lt;name&gt;.merge</code> configuration entries to mark the start-point branch as "upstream" from the new branch. It directs <a href="grgit-pull.html">grgit-pull</a> without arguments to pull from the upstream when the new branch is checked out.</p>
+<div class="paragraph">
+<p>This behavior is the default when the start point is a remote-tracking branch. Set the <code>branch.autoSetupMerge</code> configuration variable to <code>false</code> if you want <a href="grgit-checkout.html">grgit-checkout</a> and <code>grgit-branch</code> to always behave as if <code>no-track</code> were given. Set it to <code>always</code> if you want this behavior when the start-point is either a local or remote-tracking branch.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>no-track</code></dt>
+<dd>
+<p>Do not set up "upstream" configuration, even if the branch.autoSetupMerge configuration variable is true.</p>
+</dd>
+</dl>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_remove">remove</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">names</dt>
+<dd>
+<p>(<code>List&lt;Object&gt;</code>, default <code>[]</code>) Names of the branches. For a more complete list of acceptable inputs, see <a href="grgit-resolve.html">grgit-resolve</a> (specifically the <code>toBranchName</code> method).</p>
+</dd>
+<dt class="hdlist1">force</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Set to <code>true</code> to allow deleting branches that are not merged into another branch already.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add a branch starting at the current HEAD.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.add(name: 'new-branch')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add a branch starting at, but not tracking, a local start point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.add(name: 'new-branch', startPoint: 'local-branch')
+grgit.branch.add(name: 'new-branch', startPoint: 'local-branch', mode: BranchAddOp.Mode.NO_TRACK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add a branch starting at and tracking a local start point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.add(name: 'new-branch', startPoint: 'local-branch', mode: BranchAddOp.Mode.TRACK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add a branch starting from and tracking a remote branch.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.add(name: 'new-branch', startPoint: 'origin/remote-branch')
+grgit.branch.add(name: 'new-branch', startPoint: 'origin/remote-branch', mode: BranchAddOp.Mode.TRACK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add a branch starting from, but not tracking, a remote branch.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.add(name: 'new-branch', startPoint: 'origin/remote-branch', mode: BranchAddOp.Mode.NO_TRACK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To change the branch to start at, but not track, a local start point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.change(name: 'existing-branch', startPoint: 'local-branch')
+grgit.branch.change(name: 'existing-branch', startPoint: 'local-branch', mode: BranchChangeOp.Mode.NO_TRACK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To change the branch to start at and track a local start point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.change(name: 'existing-branch', startPoint: 'local-branch', mode: BranchChangeOp.Mode.TRACK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To change the branch to start from and track a remote start point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.change(name: 'existing-branch', startPoint: 'origin/remote-branch')
+grgit.branch.change(name: 'existing-branch', startPoint: 'origin/remote-branch', mode: BranchChangeOp.Mode.TRACK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To change the branch to start from, but not track, a remote start point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.branch.change(name: 'existing-branch', startPoint: 'origin/remote-branch', mode: BranchChangeOp.Mode.NO_TRACK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Remove branches that have been merged.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def removedBranches = grgit.branch.remove(names: ['the-branch'])
+def removedBranches = grgit.branch.remove(names: ['the-branch', 'other-branch'], force: false)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Remove branches, even if they haven&#8217;t been merged.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def removedBranches = grgit.branch.remove(names: ['the-branch'], force: true)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To list local branches only.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def branches = grgit.branch.list()
+def branches = grgit.branch.list(mode: BranchListOp.Mode.LOCAL)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To list remote branches only.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def branches = grgit.branch.list(mode: BranchListOp.Mode.REMOTE)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To list all branches.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def branches = grgit.branch.list(mode: BranchListOp.Mode.ALL)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To list all branches contains specified commit</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def branches = grgit.branch.list(contains: %Commit hash or tag name%)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/docs/git-branch">git-branch</a></p>
+</li>
+<li>
+<p><a href="grgit-push.html">grgit-push</a></p>
+</li>
+<li>
+<p><a href="grgit-pull.html">grgit-pull</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-branch.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+          </article>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <p>Content is based on (sometimes copied directly from) documentation from <a href='https://git-scm.com'>git-scm.org</a>, <a href='https://www.eclipse.org/jgit'>JGit</a>, and Grgit itself.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

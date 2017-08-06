@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grgit-commit
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
+        <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--blue-grey-100">
+        <div class="container mdl-grid">
+          <article class="mdl-card mdl-cell mdl-cell--12-col">
+            <header class="mdl-card__title">
+              <h1 class="mdl-card__title-text">grgit-commit</h1>
+            </header>
+            <section class="mdl-card__supporting-text"><div class="sect1">
+<h2 id="_name">Name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>grgit-commit - Record changes to the repository</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">Synopsis</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.commit(message: &lt;message&gt;, paths: [&lt;path&gt;, ...], all: &lt;boolean&gt;, amend: &lt;boolean&gt;,
+  reflogComment: &lt;message&gt;, committer: &lt;person&gt;, author: &lt;person&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.commit {
+  message = &lt;message&gt;
+  paths = [&lt;path&gt;, ...]
+  all = &lt;boolean&gt;
+  amend = &lt;boolean&gt;
+  reflogComment = &lt;message&gt;
+  committer = &lt;person&gt;
+  author = &lt;person&gt;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Stores the current contents of the index in a new commit along with a log message from the user describing the changes.</p>
+</div>
+<div class="paragraph">
+<p>The content to be added can be specified in several ways:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>by using <a href="grgit-add.html">grgit-add</a> to incrementally "add" changes to the index before using the commit command (Note: even modified files must be "added");</p>
+</li>
+<li>
+<p>by using <a href="grgit-remove.html">grgit-remove</a> to remove files from the working tree and the index, again before using the commit command;</p>
+</li>
+<li>
+<p>by listing <code>paths</code> as arguments to the <code>commit</code> command, in which case the commit will ignore changes staged in the index, and instead record the current content of the listed files (which must already be known to Git);</p>
+</li>
+<li>
+<p>by using the <code>all</code> switch with the commit command to automatically "add" changes from all known files (i.e. all files that are already listed in the index) and to automatically "rm" files in the index that have been removed from the working tree, and then perform the actual commit;</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you make a commit and then find a mistake immediately after that, you can recover from it with <a href="grgit-reset.html">grgit-reset</a>.</p>
+</div>
+<div class="paragraph">
+<p>Returns a <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Commit.html">Commit</a> representing the new <code>HEAD</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">Options</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">message</dt>
+<dd>
+<p>(<code>String</code>, default <code>null</code>) Use the given &lt;msg&gt; as the commit message.</p>
+</dd>
+<dt class="hdlist1">paths</dt>
+<dd>
+<p>(<code>Set&lt;String&gt;</code>, default <code>[]</code>) When files are given on the command line, the command commits the contents of the named files, without recording the changes already staged. The contents of these files are also staged for the next commit on top of what have been staged before.</p>
+</dd>
+<dt class="hdlist1">all</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Tell the command to automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected.</p>
+</dd>
+<dt class="hdlist1">amend</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Replace the tip of the current branch by creating a new commit. The recorded tree is prepared as usual, and the message from the original commit is used as the starting point, instead of an empty message, when no other message is specified from the command line. The new commit has the same parents and author as the current one.</p>
+</dd>
+<dt class="hdlist1">reflogComment</dt>
+<dd>
+<p>(<code>String</code>, default <code>null</code>) Use a different comment in the reflog for this commit.</p>
+</dd>
+<dt class="hdlist1">committer</dt>
+<dd>
+<p>(<code>Person</code>, default <code>null</code>) Override the committer recorded in the commit. This must be a <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Person.html">Person</a>.</p>
+</dd>
+<dt class="hdlist1">author</dt>
+<dd>
+<p>(<code>Person</code>, default <code>null</code>) Override the author recorded in the commit. This must be a <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Person.html">Person</a>.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To commit all staged changes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def commit = grgit.commit(message: 'something about the change')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To commit changes to all previously tracked files.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def commit = grgit.commit(message: 'something about the change', all: true)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To amend the previous commit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def commit = grgit.commit(message: 'something about the change', amend: true)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To commit changes authored by another person.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def commit = grgit.commit(message: 'something about the change', author: new Person('Bruce Wayne', 'bruce.wayne@wayneindustries.com'))</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/docs/git-commit">git-commit</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-commit.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+          </article>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <p>Content is based on (sometimes copied directly from) documentation from <a href='https://git-scm.com'>git-scm.org</a>, <a href='https://www.eclipse.org/jgit'>JGit</a>, and Grgit itself.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

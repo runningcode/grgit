@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grgit-log
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
+        <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--blue-grey-100">
+        <div class="container mdl-grid">
+          <article class="mdl-card mdl-cell mdl-cell--12-col">
+            <header class="mdl-card__title">
+              <h1 class="mdl-card__title-text">grgit-log</h1>
+            </header>
+            <section class="mdl-card__supporting-text"><div class="sect1">
+<h2 id="_name">Name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>grgit-log - Show commit logs</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">Synopsis</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.log()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.log(includes: [&lt;revstr&gt;, ...], excludes: [&lt;revstr&gt;, ...], paths: [&lt;path&gt;, ...],
+  skipCommits: &lt;int&gt;, maxCommits: &lt;int&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.log {
+  includes = [&lt;revstr&gt;, ...]
+  excludes = [&lt;revstr&gt;, ...]
+  paths = [&lt;path&gt;, ...]
+  skipCommits = &lt;int&gt;
+  maxCommits = &lt;int&gt;
+  range(&lt;revstr since&gt;, &lt;revstr until&gt;)
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Shows the commit logs.</p>
+</div>
+<div class="paragraph">
+<p>List commits that are reachable by following the parent links from the given  <code>includes</code> commit(s), but exclude commits that are reachable from the one(s) given with the <code>excludes</code> option. The output is given in reverse chronological order.</p>
+</div>
+<div class="paragraph">
+<p>You can think of this as a set operation. Commits given in <code>includes</code> form a set of commits that are reachable from any of them, and then commits reachable from any of the ones given with <code>excludes</code> are subtracted from that set. The remaining commits are what comes out in the result. Various other options and paths parameters can be used to further limit the result.</p>
+</div>
+<div class="paragraph">
+<p>Thus, the following command means "list all the commits which are reachable from foo or bar, but not from baz".</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.log(includes: ['foo', 'bar'], excludes: ['baz'])</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A special notation (in the Closure syntax only) <code>range(&lt;commit1&gt;, &lt;commit2&gt;)</code> can be used as a short-hand for <code>excludes: [&lt;commit2&gt;], includes: [&lt;commit1&gt;]</code>. For example, either of the following may be used interchangeably:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.log(includes: ['HEAD'], excludes: ['origin'])
+grgit.log {
+  range('origin', 'HEAD')
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns a <code>List&lt;Commit&gt;</code> (<a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Commit.html">Commit</a>) with the commits matching the criteria given.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">Options</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">includes</dt>
+<dd>
+<p>(<code>List&lt;Object&gt;</code>, default <code>[]</code>) Commit-ish object names to include the history of in the output. For a more complete list of ways to spell commit names, see <a href="grgit-resolve.html">grgit-resolve</a> (specifically the <code>toCommit</code> method).</p>
+</dd>
+<dt class="hdlist1">excludes</dt>
+<dd>
+<p>(<code>List&lt;Object&gt;</code>, default <code>[]</code>) Commit-ish object names to exclude the history of in the output. For a more complete list of ways to spell commit names, see <a href="grgit-resolve.html">grgit-resolve</a> (specifically the <code>toCommit</code> method).</p>
+</dd>
+<dt class="hdlist1">skipCommits</dt>
+<dd>
+<p>(<code>int</code>, default <code>-1</code>) Skip <code>skipCommits</code> commits before starting to show the commit output. A negative value ignores this option.</p>
+</dd>
+<dt class="hdlist1">maxCommits</dt>
+<dd>
+<p>(<code>int</code>, default <code>-1</code>) Limit the number of commits to output. A negative value ignores this option.</p>
+</dd>
+<dt class="hdlist1">paths</dt>
+<dd>
+<p>(<code>List&lt;String&gt;</code>, defaul: <code>[]</code>) Commits modifying the given paths are selected. Omitting this will include all reachable commits.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/docs/git-log">git-log</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-log.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+          </article>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <p>Content is based on (sometimes copied directly from) documentation from <a href='https://git-scm.com'>git-scm.org</a>, <a href='https://www.eclipse.org/jgit'>JGit</a>, and Grgit itself.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

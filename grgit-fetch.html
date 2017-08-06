@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grgit-fetch
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
+        <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--blue-grey-100">
+        <div class="container mdl-grid">
+          <article class="mdl-card mdl-cell mdl-cell--12-col">
+            <header class="mdl-card__title">
+              <h1 class="mdl-card__title-text">grgit-fetch</h1>
+            </header>
+            <section class="mdl-card__supporting-text"><div class="sect1">
+<h2 id="_name">Name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>grgit-fetch - Download objects and refs from another repository</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">Synopsis</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.fetch()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.fetch(remote: '&lt;name or uri&gt;', refSpecs: [&lt;refspec&gt;, ...], prune: &lt;boolean&gt;, tagMode: &lt;mode&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.fetch {
+  remote = '&lt;name or uri&gt;'
+  refspecs = [&lt;refspec&gt;, ...]
+  prune = &lt;boolean&gt;
+  tagMode = &lt;mode&gt;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Fetch branches and/or tags (collectively, "refs") from one or more other repositories, along with the objects necessary to complete their histories. Remote-tracking branches are updated (see the description of &lt;refspec&gt; below for ways to control this behavior).</p>
+</div>
+<div class="paragraph">
+<p>By default, any tag that points into the histories being fetched is also fetched; the effect is to fetch tags that point at branches that you are interested in. This default behavior can be changed by using a <code>tagMode</code> of <code>'all'</code> or <code>'none'' or by configuring `remote.&lt;name&gt;.tagOpt</code>. By using a refspec that fetches tags explicitly, you can fetch tags that do not point into branches you are interested in as well.</p>
+</div>
+<div class="paragraph">
+<p>When no remote is specified, by default the origin remote will be used, unless there’s an upstream branch configured for the current branch.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">Options</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">remote</dt>
+<dd>
+<p>(<code>String</code>, default <code>null</code>) The "remote" repository that is source of a fetch operation. This parameter can be either a URL or the name of a remote.</p>
+</dd>
+<dt class="hdlist1">refspecs</dt>
+<dd>
+<p>(<code>List&lt;String&gt;</code>, default <code>[]</code>) Specifies which refs to fetch and which local refs to update. When no &lt;refspec&gt;s are provided, the refs to fetch are read from <code>remote.&lt;repository&gt;.fetch</code> variables instead.</p>
+<div class="paragraph">
+<p>The format of a &lt;refspec&gt; parameter is an optional plus +, followed by the source ref &lt;src&gt;, followed by a colon :, followed by the destination ref &lt;dst&gt;. The colon can be omitted when &lt;dst&gt; is empty.</p>
+</div>
+<div class="paragraph">
+<p>The remote ref that matches &lt;src&gt; is fetched, and if &lt;dst&gt; is not empty string, the local ref that matches it is fast-forwarded using &lt;src&gt;. If the optional plus + is used, the local ref is updated even if it does not result in a fast-forward update.</p>
+</div>
+</dd>
+<dt class="hdlist1">prune</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Before fetching, remove any remote-tracking references that no longer exist on the remote. Tags are not subject to pruning if they are fetched only because of the default tag auto-following or due to a <code>tagMode</code> option. However, if tags are fetched due to an explicit refspec, then they are also subject to pruning.</p>
+</dd>
+<dt class="hdlist1">tagMode</dt>
+<dd>
+<p>(<code>String</code>, default <code>auto</code>) Must be one of <code>'auto'</code>, <code>'all'</code>, <code>'none'</code>.</p>
+<div class="paragraph">
+<p><code>'auto'</code> - tags that point at objects that are downloaded from the remote repository are fetched and stored locally.</p>
+</div>
+<div class="paragraph">
+<p><code>'none'</code> - disables automatic tag following.</p>
+</div>
+<div class="paragraph">
+<p><code>'all'</code> - Fetch all tags from the remote (i.e., fetch remote tags <code>refs/tags/*</code> into local tags with the same name), in addition to whatever else would otherwise be fetched.</p>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/docs/git-fetch">git-fetch</a></p>
+</li>
+<li>
+<p><a href="grgit-pull.html">grgit-pull</a></p>
+</li>
+<li>
+<p><a href="grgit-push.html">grgit-push</a></p>
+</li>
+<li>
+<p><a href="grgit-authentication.html">grgit-authentication</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-fetch.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+          </article>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <p>Content is based on (sometimes copied directly from) documentation from <a href='https://git-scm.com'>git-scm.org</a>, <a href='https://www.eclipse.org/jgit'>JGit</a>, and Grgit itself.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

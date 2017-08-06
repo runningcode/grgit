@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grgit-clean
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
+        <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--blue-grey-100">
+        <div class="container mdl-grid">
+          <article class="mdl-card mdl-cell mdl-cell--12-col">
+            <header class="mdl-card__title">
+              <h1 class="mdl-card__title-text">grgit-clean</h1>
+            </header>
+            <section class="mdl-card__supporting-text"><div class="sect1">
+<h2 id="_name">Name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>grgit-clean - Remove untracked files from the working tree</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">Synopsis</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.clean()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.clean(paths: ['&lt;path&gt;', ...], directories: &lt;boolean&gt;, dryRun: &lt;boolean&gt;, ignore: &lt;boolean&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.clean {
+  paths = ['&lt;path&gt;', ...]
+  directories = &lt;boolean&gt;
+  dryRun = &lt;boolean&gt;
+  ignore = &lt;boolean&gt;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cleans the working tree by removing files that are not under version control.</p>
+</div>
+<div class="paragraph">
+<p>Normally, only files uknown to Git are removed, but if <code>ignore</code> is <code>false</code>, ignored files are also removed. This can, for example, be useful to remove all build products.</p>
+</div>
+<div class="paragraph">
+<p>If any optional <code>paths</code> are given, only those paths are affected.</p>
+</div>
+<div class="paragraph">
+<p>Returns a <code>Set&lt;String&gt;</code> of the paths that were deleted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">Options</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">directories</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Remove untracked directories in addition to untracked files.</p>
+</dd>
+<dt class="hdlist1">dryRun</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Don’t actually remove anything, just show what would be done.</p>
+</dd>
+<dt class="hdlist1">ignore</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>true</code>) Don’t use the standard ignore rules read from .gitignore (per directory) and $GIT_DIR/info/exclude. This allows removing all untracked files, including build products. This can be used (possibly in conjunction with git reset) to create a pristine working directory to test a clean build.</p>
+</dd>
+<dt class="hdlist1">paths</dt>
+<dd>
+<p>(<code>Set&lt;String&gt;</code>, default <code>null</code>) Only remove files in the given paths.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To clean all untracked files, but not ignored ones or untracked directories.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def cleanedPaths = grgit.clean()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To clean all untracked files and directories.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def cleanedPaths = grgit.clean(directories: true)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To clean all untracked files, including ignored ones.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def cleanedPaths = grgit.clean(ignore: false)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To only return files that would be cleaned.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def cleanedPaths = grgit.clean(dryRun: true)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To clean specific untracked files.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def cleanedPaths = grgit.clean(paths: ['specific/file.txt'])</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/docs/git-clean">git-clean</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-clean.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+          </article>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <p>Content is based on (sometimes copied directly from) documentation from <a href='https://git-scm.com'>git-scm.org</a>, <a href='https://www.eclipse.org/jgit'>JGit</a>, and Grgit itself.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

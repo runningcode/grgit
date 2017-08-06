@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grgit-authentication
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
+        <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--blue-grey-100">
+        <div class="container mdl-grid">
+          <article class="mdl-card mdl-cell mdl-cell--12-col">
+            <header class="mdl-card__title">
+              <h1 class="mdl-card__title-text">grgit-authentication</h1>
+            </header>
+            <section class="mdl-card__supporting-text"><div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Grgit supports authentication via basic auth (i.e. username/password or <em>hardcoded</em> creds) and SSH keys. It also integrates support for using SSH agents (e.g. ssh-agent or Pageant) to provide authentication.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">Options</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_authentication_method">Authentication Method</h3>
+<div class="paragraph">
+<p>The following system properties can be set to configure which authentication options are available when performing a <em>transport</em> command. Generally, you shouldn&#8217;t need to modify any of these unless you are having an issue and need to bypass or force or particular method.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.force</dt>
+<dd>
+<p>(one of <code>hardcoded</code>, <code>interactive</code>, <code>sshagent</code>, <code>pageant</code>)</p>
+</dd>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.hardcoded.allow</dt>
+<dd>
+<p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
+</dd>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.interactive.allow</dt>
+<dd>
+<p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
+</dd>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.sshagent.allow</dt>
+<dd>
+<p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
+</dd>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.pageant.allow</dt>
+<dd>
+<p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>When credentials/input are needed, they will be selected in the following precedence, if available:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Hardcoded (i.e. username/password) credentials, if provided.</p>
+</li>
+<li>
+<p>Interactive credentials provided via a dialog prompt. This is only available in non-headless JVMs, and will only display if the input couldn&#8217;t be retrieved in another manner.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For SSH URLs, a key may be used from one of the following sources:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>SSH key in a default location (e.g. <code>~/.ssh/id_rsa</code>)</p>
+</li>
+<li>
+<p>SSH key from a user-specified location</p>
+</li>
+<li>
+<p>Keys loaded into a running ssh-agent</p>
+</li>
+<li>
+<p>Keys loaded into a running Pageant</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hardcoded_credentials">Hardcoded Credentials</h3>
+<div class="paragraph">
+<p>These are presented in precedence order (direct parameter in code, system properties, environment variables).</p>
+</div>
+<div class="sect3">
+<h4 id="_parameter_to_grgit_operations">Parameter to Grgit operations</h4>
+<div class="paragraph">
+<p>Some Grgit operations, such as <a href="grgit-clone.html">grgit-clone</a> allow you to provide credentials programmatically.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">import org.ajoberstar.grgit.Grgit
+import org.ajoberstar.grgit.Credentials
+
+def grgit = Grgit.clone(dir: '...', url: '...', credentials: new Credentials(username, password))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_system_properties">System Properties</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.username</dt>
+<dd>
+<p>Username to provide when basic authentication credentials are needed. Username can be specified without a password (e.g. using a GitHub auth token as the user and providing no password).</p>
+</dd>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.password</dt>
+<dd>
+<p>Password to provide when basic authentication credentials are needed.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_environment_variables">Environment Variables</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">GRGIT_USER</dt>
+<dd>
+<p>Username to provide when basic authentication credentials are needed. Username can be specified without a password (e.g. using a GitHub auth token as the user and providing no password).</p>
+</dd>
+<dt class="hdlist1">GRGIT_PASS</dt>
+<dd>
+<p>Password to provide when basic authentication credentials are needed.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ssh_credentials">SSH Credentials</h3>
+<div class="paragraph">
+<p>Generally, these will be detected for you, whether they&#8217;re in a default location or provided from an agent. If you want to specify a specific SSH key (and passphrase), you can do so via system properties.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.ssh.private</dt>
+<dd>
+<p>Path to the SSH key to use</p>
+</dd>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.ssh.passphrase</dt>
+<dd>
+<p>Passphrase to use the key, if any needed</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_customizing_the_jsch_session">Customizing the JSch Session</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>JGit uses JSch for it&#8217;s SSH layer. To customize this from it&#8217;s defaults, you can use the following system properties (see available keys/values in <a href="https://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/JSch.html#setConfig-java.util.Hashtable-">JSch&#8217;s docs</a>):</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.session.config.&lt;key&gt;</dt>
+<dd>
+<p>&lt;value&gt;</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>For example: <code>org.ajoberstar.grgit.auth.session.config.StrictHostKeyChecking=no</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a non-exhaustive list of examples of how to configure authentication in common scenarios.</p>
+</div>
+<div class="sect2">
+<h3 id="_using_a_github_auth_token_with_https_urls">Using a GitHub auth token with HTTPS URLs</h3>
+<div class="paragraph">
+<p>Set the environment variable <code>GRGIT_USER</code> to your authentication token from GitHub.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_a_username_and_password_with_https_urls">Using a Username and Password with HTTPS URLs</h3>
+<div class="paragraph">
+<p>Set the system properties:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>groovy -Dorg.ajoberstar.grgit.auth.username=someone -Dorg.ajoberstar.grgit.auth.password=mysecretpassword myscript.groovy</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_a_specific_ssh_key">Using a specific SSH key</h3>
+<div class="paragraph">
+<p>Set the system properties:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>groovy -Dorg.ajoberstar.grgit.auth.ssh.private=/my/secret/key -Dorg.ajoberstar.grgit.auth.ssh.passphrase=mysecretpassword myscript.groovy</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_ssh_agent">Using ssh-agent</h3>
+<div class="paragraph">
+<p>Make sure your ssh-agent is started and your key is loaded. Then just run your application or script.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_pageant">Using Pageant</h3>
+<div class="paragraph">
+<p>Make sure your Pageant is started and your key is loaded. Then just run your application or script.</p>
+</div>
+</div>
+</div>
+</div></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-authentication.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+          </article>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <p>Content is based on (sometimes copied directly from) documentation from <a href='https://git-scm.com'>git-scm.org</a>, <a href='https://www.eclipse.org/jgit'>JGit</a>, and Grgit itself.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

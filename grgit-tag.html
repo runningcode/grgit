@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grgit-tag
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
+        <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--blue-grey-100">
+        <div class="container mdl-grid">
+          <article class="mdl-card mdl-cell mdl-cell--12-col">
+            <header class="mdl-card__title">
+              <h1 class="mdl-card__title-text">grgit-tag</h1>
+            </header>
+            <section class="mdl-card__supporting-text"><div class="sect1">
+<h2 id="_name">Name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>grgit-tag - Create, list, or delete tag object</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">Synopsis</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.tag.list()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.tag.add(name: &lt;name&gt;, pointsTo: &lt;commit&gt;, force: &lt;boolean&gt;,
+  annotate: &lt;boolean&gt;, message: &lt;msg&gt;, tagger: &lt;person&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.tag.remove(names: [&lt;name&gt;, ...])</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>grgit.tag.list()</code></dt>
+<dd>
+<p>Returns a list of tags (<a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Tag.html">Tag</a>).</p>
+</dd>
+<dt class="hdlist1"><code>grgit.tag.add(name: &lt;name&gt;, pointsTo: &lt;commit&gt;, force: &lt;boolean&gt;, annotate: &lt;boolean&gt;, message: &lt;msg&gt;, tagger: &lt;person&gt;)</code></dt>
+<dd>
+<p>Creates a new tag named <code>&lt;name&gt;</code> pointing at <code>&lt;pointsTo&gt;</code>. Returns the created <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Tag.html">Tag</a>.</p>
+</dd>
+<dt class="hdlist1"><code>grgit.tag.remove(names: [&lt;name&gt;, &#8230;&#8203;])</code></dt>
+<dd>
+<p>Removes one or more tages. Returns a <code>List&lt;String&gt;</code> of tag names removed.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">Options</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_add">add</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">name</dt>
+<dd>
+<p>(<code>String</code>, default <code>null</code>) Name of the tag</p>
+</dd>
+<dt class="hdlist1">message</dt>
+<dd>
+<p>(<code>String</code>, default <code>null</code>) Use the given &lt;msg&gt; as the commit message.</p>
+</dd>
+<dt class="hdlist1">tagger</dt>
+<dd>
+<p>(<code>Person</code>, default <code>null</code>) Override the tagger recorded in the tag. This must be a <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Person.html">Person</a>.</p>
+</dd>
+<dt class="hdlist1">annotate</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>true</code>) Make an unsigned, annotated tag object</p>
+</dd>
+<dt class="hdlist1">force</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Replace an existing tag with the given name (instead of failing)</p>
+</dd>
+<dt class="hdlist1">pointsTo</dt>
+<dd>
+<p>(<code>Object</code>, default <code>null</code>) Point new tag at this commit. For a more complete list of acceptable inputs, see <a href="grgit-resolve.html">grgit-resolve</a> (specifically the <code>toRevisionString</code> method).</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_remove">remove</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">names</dt>
+<dd>
+<p>(<code>List&lt;Object&gt;</code>, default <code>[]</code>) Names of the tags. For a more complete list of acceptable inputs, see <a href="grgit-resolve.html">grgit-resolve</a> (specifically the <code>toTagName</code> method).</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To list all tags.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def tags = grgit.tag.list()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add an annotated tag.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.tag.add(name: 'new-tag')
+grgit.tag.add(name: 'new-tag', message: 'Some message')
+grgit.tag.add(name: 'new-tag', annotate: true)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add an unannotated tag.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.tag.add(name: 'new-tag', annotate: false)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add a tag starting at a specific commit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.tag.add(name: 'new-tag', pointsTo: 'other-branch')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Overwrite an existing tag.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.tag.add(name: 'existing-tag', force: true)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Remove tags.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def removedTags = grgit.tag.remove(names: ['the-tag'])</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/docs/git-tag">git-tag</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-tag.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+          </article>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <p>Content is based on (sometimes copied directly from) documentation from <a href='https://git-scm.com'>git-scm.org</a>, <a href='https://www.eclipse.org/jgit'>JGit</a>, and Grgit itself.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

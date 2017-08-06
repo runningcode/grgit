@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grgit-push
+    </title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
+        <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--blue-grey-100">
+        <div class="container mdl-grid">
+          <article class="mdl-card mdl-cell mdl-cell--12-col">
+            <header class="mdl-card__title">
+              <h1 class="mdl-card__title-text">grgit-push</h1>
+            </header>
+            <section class="mdl-card__supporting-text"><div class="sect1">
+<h2 id="_name">Name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>grgit-push - Update remote refs along with associated objects</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">Synopsis</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.push()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.push(remote: '&lt;name or uri&gt;', refsOrSpecs: [&lt;ref or refspec&gt;, ...],
+  all: &lt;boolean&gt;, tags: &lt;boolean&gt;, force: &lt;boolean&gt;, dryRun: &lt;boolean&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.push {
+  remote = '&lt;name or uri&gt;'
+  refsOrSpecs = [&lt;ref or refspec&gt;, ...]
+  all = &lt;boolean&gt;
+  tags = &lt;boolean&gt;
+  force = &lt;boolean&gt;
+  dryRun = &lt;boolean&gt;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Updates remote refs using local refs, while sending objects necessary to complete the given refs.</p>
+</div>
+<div class="paragraph">
+<p>When the <code>remote</code> is not specified, <code>branch.*.remote</code> configuration for the current branch is consulted to determine where to push. If the configuration is missing, it defaults to <code>origin</code>.</p>
+</div>
+<div class="paragraph">
+<p>When the <code>refsOrSpecs</code> or <code>all</code> or <code>tags</code> options are not specified, the command finds the default <code>&lt;refspec&gt;</code> by consulting <code>remote.*.push</code> configuration, and if it is not found, honors <code>push.default</code> configuration to decide what to push (See <a href="https://git-scm.com/docs/git-config">git-config</a> for the meaning of <code>push.default</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">Options</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">remote</dt>
+<dd>
+<p>(<code>String</code>, default <code>null</code>) The "remote" repository that is destination of a push operation. This parameter can be either a URL or the name of a remote.</p>
+</dd>
+<dt class="hdlist1">refsOrSpecs</dt>
+<dd>
+<p>(<code>List&lt;String&gt;</code>, default <code>[]</code>) Specify what destination ref to update with what source object. The format of a &lt;refspec&gt; parameter is an optional plus +, followed by the source object &lt;src&gt;, followed by a colon :, followed by the destination ref &lt;dst&gt;.</p>
+<div class="paragraph">
+<p>The &lt;src&gt; is often the name of the branch you would want to push, but it can be any arbitrary "SHA-1 expression", such as <code>master~4</code> or <code>HEAD</code> (see <a href="https://git-scm.com/docs/gitrevisions">gitrevisions</a>).</p>
+</div>
+<div class="paragraph">
+<p>The &lt;dst&gt; tells which ref on the remote side is updated with this push. Arbitrary expressions cannot be used here, an actual ref must be named. If <code>grgit.push(remote: '&lt;repositor&gt;')</code> without any <code>refsOrSpecs</code> argument is set to update some ref at the destination with &lt;src&gt; with <code>remote.&lt;repository&gt;.push</code> configuration variable, :&lt;dst&gt; part can be omitted—​such a push will update a ref that &lt;src&gt; normally updates without any &lt;refspec&gt; on the command line. Otherwise, missing :&lt;dst&gt; means to update the same ref as the &lt;src&gt;.</p>
+</div>
+<div class="paragraph">
+<p>The object referenced by &lt;src&gt; is used to update the &lt;dst&gt; reference on the remote side. By default this is only allowed if &lt;dst&gt; is not a tag (annotated or lightweight), and then only if it can fast-forward &lt;dst&gt;. By having the optional leading +, you can tell Git to update the &lt;dst&gt; ref even if it is not allowed by default (e.g., it is not a fast-forward.) This does not attempt to merge &lt;src&gt; into &lt;dst&gt;.</p>
+</div>
+<div class="paragraph">
+<p>Pushing an empty &lt;src&gt; allows you to delete the &lt;dst&gt; ref from the remote repository.</p>
+</div>
+<div class="paragraph">
+<p>The special refspec : (or +: to allow non-fast-forward updates) directs Git to push "matching" branches: for every branch that exists on the local side, the remote side is updated if a branch of the same name already exists on the remote side.</p>
+</div>
+</dd>
+<dt class="hdlist1">all</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Push all branches (i.e. refs under <code>refs/heads/</code>); cannot be used with other <code>refsOrSpecs</code>.</p>
+</dd>
+<dt class="hdlist1">tags</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) All refs under refs/tags are pushed, in addition to refspecs explicitly listed in <code>refsOrSpecs</code>.</p>
+</dd>
+<dt class="hdlist1">force</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Usually, the command refuses to update a remote ref that is not an ancestor of the local ref used to overwrite it. Note that <code>force</code> applies to all the refs that are pushed, hence using it with <code>push.default</code> set to <code>matching</code> or with multiple push destinations configured with <code>remote.*.push</code> may overwrite refs other than the current branch (including local refs that are strictly behind their remote counterpart). To force a push to only one branch, use a + in front of the refspec to push (e.g git push origin +master to force a push to the master branch). See the &lt;refspec&gt;&#8230;&#8203; section above for details.</p>
+</dd>
+<dt class="hdlist1">dryRun</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Do everything except actually send the updates.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/docs/git-push">git-push</a></p>
+</li>
+<li>
+<p><a href="grgit-fetch.html">grgit-fetch</a></p>
+</li>
+<li>
+<p><a href="grgit-pull.html">grgit-pull</a></p>
+</li>
+<li>
+<p><a href="grgit-authentication.html">grgit-authentication</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-push.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+          </article>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <p>Content is based on (sometimes copied directly from) documentation from <a href='https://git-scm.com'>git-scm.org</a>, <a href='https://www.eclipse.org/jgit'>JGit</a>, and Grgit itself.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
