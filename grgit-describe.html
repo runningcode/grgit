@@ -51,7 +51,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.describe(commit: &lt;commit&gt;, longDescr: &lt;boolean&gt;)</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.describe(commit: &lt;commit&gt;, longDescr: &lt;boolean&gt;, match: [&lt;string&gt;])</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -59,6 +59,7 @@
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.describe {
   commit = &lt;commit&gt;
   longDescr = &lt;boolean&gt;
+  match = [&lt;string&gt;]
 }</code></pre>
 </div>
 </div>
@@ -87,6 +88,10 @@
 <dt class="hdlist1">longDescr</dt>
 <dd>
 <p>(<code>boolean</code>, default <code>false</code>) Always output the long format (the tag, the number of commits and the abbreviated commit name) even when it matches a tag. This is useful when you want to see parts of the commit object name in "describe" output, even when the commit in question happens to be a tagged version. Instead of just emitting the tag name, it will describe such a commit as v1.2-0-gdeadbee (0th commit since tag v1.2 that points at object deadbee…​.).</p>
+</dd>
+<dt class="hdlist1">match</dt>
+<dd>
+<p>(<code>List&lt;String&gt;</code>, default <code>[]</code>) Only consider tags matching the given glob(7) pattern, excluding the "refs/tags/" prefix. This can be used to avoid leaking private tags from the repository. If multiple patterns are given they will be accumulated, and tags matching any of the patterns will be considered.</p>
 </dd>
 </dl>
 </div>
