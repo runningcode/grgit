@@ -37,7 +37,68 @@
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Grgit supports authentication via basic auth (i.e. username/password or <em>hardcoded</em> creds) and SSH keys. It also integrates support for using SSH agents (e.g. ssh-agent or Pageant) to provide authentication.</p>
+<p>Grgit communicates with remote repositories in one of three ways:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>HTTP(S) protocol with basic auth credentials (i.e. username/password).</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Where possible, use of HTTPS urls is preferred over the SSH options. This has been far more reliable than JSch. The SSH support via directy commands is newer and still opt-in.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>SSH protocol using JSch (a Java implementation of the SSH protocol). This approach can use JSch Agent Proxy as a way to get SSH keys from ssh-agent or Pageant.</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+There have been numerous issues with JSch authentication. It may work for you, but you could run into issues from conflicting JNA libraries, host key authentication issues, algorithm negotiation. Additionally, the JSch Agent Proxy library hasn&#8217;t been maintained since 2014 (as of April 2018).
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>SSH protocol using <code>ssh</code> or <code>plink</code> directly. This approach should work as long as you can push/pull on your machine</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This is intended to replace JSch, but is new as of Grgit 2.2.0. If it proves to be reliable, it will be on by default in 3.0.0.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+This support must be explicitly enabled with the system property <code>org.ajoberstar.grgit.auth.command.allow=true</code>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -71,6 +132,10 @@
 <dd>
 <p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
 </dd>
+<dt class="hdlist1">org.ajoberstar.grgit.auth.command.allow</dt>
+<dd>
+<p>(<code>true</code> or <code>false</code>, default <code>false</code>)</p>
+</dd>
 </dl>
 </div>
 <div class="paragraph">
@@ -87,7 +152,7 @@
 </ol>
 </div>
 <div class="paragraph">
-<p>For SSH URLs, a key may be used from one of the following sources:</p>
+<p>For SSH URLs using JSch, a key may be used from one of the following sources:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -104,6 +169,9 @@
 <p>Keys loaded into a running Pageant</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>For SSH using <em>command</em> mode, any keys your <code>ssh</code> or <code>plink</code> can natively pick up by default will be used. This should include keys in default locations (e.g. <code>~/</code>) and any compatible SSH agent or OS keychain. If your key is password protected and not loaded in an agent, authentication will fail. Grgit cannot provide credentials to the external commands.</p>
 </div>
 </div>
 <div class="sect2">
@@ -158,6 +226,18 @@ def grgit = Grgit.clone(dir: '...', url: '...', credentials: new Credentials(use
 </div>
 <div class="sect2">
 <h3 id="_ssh_credentials">SSH Credentials</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+This is not used when <code>org.ajoberstar.grgit.auth.command.allow=true</code> is set.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Generally, these will be detected for you, whether they&#8217;re in a default location or provided from an agent. If you want to specify a specific SSH key (and passphrase), you can do so via system properties.</p>
 </div>
@@ -179,6 +259,18 @@ def grgit = Grgit.clone(dir: '...', url: '...', credentials: new Credentials(use
 <div class="sect1">
 <h2 id="_customizing_the_jsch_session">Customizing the JSch Session</h2>
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+This is not used when <code>org.ajoberstar.grgit.auth.command.allow=true</code> is set.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>JGit uses JSch for it&#8217;s SSH layer. To customize this from it&#8217;s defaults, you can use the following system properties (see available keys/values in <a href="https://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/JSch.html#setConfig-java.util.Hashtable-">JSch&#8217;s docs</a>):</p>
 </div>
@@ -192,6 +284,26 @@ def grgit = Grgit.clone(dir: '...', url: '...', credentials: new Credentials(use
 </div>
 <div class="paragraph">
 <p>For example: <code>org.ajoberstar.grgit.auth.session.config.StrictHostKeyChecking=no</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_customizing_the_ssh_command_used">Customizing the SSH command used</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Requires the system property <code>org.ajoberstar.grgit.auth.command.allow=true</code> to be set.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the <code>GIT_SSH</code> environment variable is set, that will be used. If not, Grgit will scan your <code>PATH</code> for an <code>ssh</code> (preferred) or <code>plink</code> command.</p>
 </div>
 </div>
 </div>
@@ -220,6 +332,18 @@ def grgit = Grgit.clone(dir: '...', url: '...', credentials: new Credentials(use
 </div>
 <div class="sect2">
 <h3 id="_using_a_specific_ssh_key">Using a specific SSH key</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+This is not used when <code>org.ajoberstar.grgit.auth.command.allow=true</code> is set.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Set the system properties:</p>
 </div>
