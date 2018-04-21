@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"org.ajoberstar.grgit.auth","l":"GrgitSystemReader"},{"p":"org.ajoberstar.grgit.internal","l":"Operation"},{"p":"org.ajoberstar.grgit","l":"PushException"},{"p":"org.ajoberstar.grgit.internal","l":"WithOperations"},{"p":"org.ajoberstar.grgit.internal","l":"WithOperationsASTTransformation"}]

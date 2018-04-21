@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"org.ajoberstar.grgit"},{"l":"org.ajoberstar.grgit.auth"},{"l":"org.ajoberstar.grgit.internal"}]
