@@ -18,13 +18,13 @@
         <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
-            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/grgit-core/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
         <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
-          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/grgit-core/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--blue-grey-100">
@@ -36,6 +36,23 @@
             <section class="mdl-card__supporting-text"><div class="sect1">
 <h2 id="_description">Description</h2>
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>JSCH authentication (and its agent proxy) are not supported in Grgit 3.x.</p>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re using Grgit 2.x, see the <a href="grgit-authentication-2.adoc">documentation</a> for that version.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Grgit communicates with remote repositories in one of three ways:</p>
 </div>
@@ -50,41 +67,14 @@
 <div class="title">Tip</div>
 </td>
 <td class="content">
-Where possible, use of HTTPS urls is preferred over the SSH options. This has been far more reliable than JSch. The SSH support via directy commands is newer and still opt-in.
+Where possible, use of HTTPS urls is preferred over the SSH options. It has far simpler behavior than the SSH options.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>SSH protocol using JSch (a Java implementation of the SSH protocol). This approach can use JSch Agent Proxy as a way to get SSH keys from ssh-agent or Pageant.</p>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-There have been numerous issues with JSch authentication. It may work for you, but you could run into issues from conflicting JNA libraries, host key authentication issues, algorithm negotiation. Additionally, the JSch Agent Proxy library hasn&#8217;t been maintained since 2014 (as of April 2018).
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>SSH protocol using <code>ssh</code> or <code>plink</code> directly. This approach should work as long as you can push/pull on your machine</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-This is intended to replace JSch, but is new as of Grgit 2.2.0. If it proves to be reliable, it will be on by default in 3.0.0.
-</td>
-</tr>
-</table>
-</div>
+<p>SSH protocol using <code>ssh</code> or <code>plink</code> directly. This approach should work as long as you can push/pull on your machine.</p>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -92,7 +82,7 @@ This is intended to replace JSch, but is new as of Grgit 2.2.0. If it proves to 
 <div class="title">Tip</div>
 </td>
 <td class="content">
-This support must be explicitly enabled with the system property <code>org.ajoberstar.grgit.auth.command.allow=true</code>.
+You should be using an SSH agent to have your key loaded before Grgit runs.
 </td>
 </tr>
 </table>
@@ -103,84 +93,13 @@ This support must be explicitly enabled with the system property <code>org.ajobe
 </div>
 </div>
 <div class="sect1">
-<h2 id="_options">Options</h2>
+<h2 id="_http_basicauth_credentials">HTTP BasicAuth Credentials</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_authentication_method">Authentication Method</h3>
-<div class="paragraph">
-<p>The following system properties can be set to configure which authentication options are available when performing a <em>transport</em> command. Generally, you shouldn&#8217;t need to modify any of these unless you are having an issue and need to bypass or force or particular method.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.force</dt>
-<dd>
-<p>(one of <code>hardcoded</code>, <code>interactive</code>, <code>sshagent</code>, <code>pageant</code>)</p>
-</dd>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.hardcoded.allow</dt>
-<dd>
-<p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
-</dd>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.interactive.allow</dt>
-<dd>
-<p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
-</dd>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.sshagent.allow</dt>
-<dd>
-<p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
-</dd>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.pageant.allow</dt>
-<dd>
-<p>(<code>true</code> or <code>false</code>, default <code>true</code>)</p>
-</dd>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.command.allow</dt>
-<dd>
-<p>(<code>true</code> or <code>false</code>, default <code>false</code>)</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>When credentials/input are needed, they will be selected in the following precedence, if available:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Hardcoded (i.e. username/password) credentials, if provided.</p>
-</li>
-<li>
-<p>Interactive credentials provided via a dialog prompt. This is only available in non-headless JVMs, and will only display if the input couldn&#8217;t be retrieved in another manner.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>For SSH URLs using JSch, a key may be used from one of the following sources:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>SSH key in a default location (e.g. <code>~/.ssh/id_rsa</code>)</p>
-</li>
-<li>
-<p>SSH key from a user-specified location</p>
-</li>
-<li>
-<p>Keys loaded into a running ssh-agent</p>
-</li>
-<li>
-<p>Keys loaded into a running Pageant</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>For SSH using <em>command</em> mode, any keys your <code>ssh</code> or <code>plink</code> can natively pick up by default will be used. This should include keys in default locations (e.g. <code>~/</code>) and any compatible SSH agent or OS keychain. If your key is password protected and not loaded in an agent, authentication will fail. Grgit cannot provide credentials to the external commands.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_hardcoded_credentials">Hardcoded Credentials</h3>
 <div class="paragraph">
 <p>These are presented in precedence order (direct parameter in code, system properties, environment variables).</p>
 </div>
-<div class="sect3">
-<h4 id="_parameter_to_grgit_operations">Parameter to Grgit operations</h4>
+<div class="sect2">
+<h3 id="_parameter_to_grgit_operations">Parameter to Grgit operations</h3>
 <div class="paragraph">
 <p>Some Grgit operations, such as <a href="grgit-clone.html">grgit-clone</a> allow you to provide credentials programmatically.</p>
 </div>
@@ -193,8 +112,8 @@ def grgit = Grgit.clone(dir: '...', url: '...', credentials: new Credentials(use
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_system_properties">System Properties</h4>
+<div class="sect2">
+<h3 id="_system_properties">System Properties</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">org.ajoberstar.grgit.auth.username</dt>
@@ -208,8 +127,8 @@ def grgit = Grgit.clone(dir: '...', url: '...', credentials: new Credentials(use
 </dl>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_environment_variables">Environment Variables</h4>
+<div class="sect2">
+<h3 id="_environment_variables">Environment Variables</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">GRGIT_USER</dt>
@@ -224,86 +143,29 @@ def grgit = Grgit.clone(dir: '...', url: '...', credentials: new Credentials(use
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_ssh_credentials">SSH Credentials</h3>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-This is not used when <code>org.ajoberstar.grgit.auth.command.allow=true</code> is set.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Generally, these will be detected for you, whether they&#8217;re in a default location or provided from an agent. If you want to specify a specific SSH key (and passphrase), you can do so via system properties.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.ssh.private</dt>
-<dd>
-<p>Path to the SSH key to use</p>
-</dd>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.ssh.passphrase</dt>
-<dd>
-<p>Passphrase to use the key, if any needed</p>
-</dd>
-</dl>
-</div>
-</div>
-</div>
 </div>
 <div class="sect1">
-<h2 id="_customizing_the_jsch_session">Customizing the JSch Session</h2>
+<h2 id="_ssh">SSH</h2>
 <div class="sectionbody">
-<div class="admonitionblock important">
+<div class="paragraph">
+<p>If the <code>GIT_SSH</code> environment variable is set, that command will be used. If not, Grgit will scan your <code>PATH</code> for an <code>ssh</code> (preferred) or <code>plink</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Any keys your <code>ssh</code> or <code>plink</code> can natively pick up will be used. This should include keys in default locations (e.g. <code>~/</code>) and any compatible SSH agent or OS keychain.</p>
+</div>
+<div class="admonitionblock caution">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Important</div>
+<div class="title">Caution</div>
 </td>
 <td class="content">
-This is not used when <code>org.ajoberstar.grgit.auth.command.allow=true</code> is set.
+<div class="paragraph">
+<p>Grgit cannot provide credentials to the system <code>ssh</code> or <code>plink</code> commands. If your key is password protected and not loaded in an agent, authentication <em>will</em> fail <strong>or</strong> hang indefinitely.</p>
+</div>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>JGit uses JSch for it&#8217;s SSH layer. To customize this from it&#8217;s defaults, you can use the following system properties (see available keys/values in <a href="https://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/JSch.html#setConfig-java.util.Hashtable-">JSch&#8217;s docs</a>):</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">org.ajoberstar.grgit.auth.session.config.&lt;key&gt;</dt>
-<dd>
-<p>&lt;value&gt;</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>For example: <code>org.ajoberstar.grgit.auth.session.config.StrictHostKeyChecking=no</code></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_customizing_the_ssh_command_used">Customizing the SSH command used</h2>
-<div class="sectionbody">
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-Requires the system property <code>org.ajoberstar.grgit.auth.command.allow=true</code> to be set.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If the <code>GIT_SSH</code> environment variable is set, that will be used. If not, Grgit will scan your <code>PATH</code> for an <code>ssh</code> (preferred) or <code>plink</code> command.</p>
 </div>
 </div>
 </div>
@@ -331,29 +193,6 @@ Requires the system property <code>org.ajoberstar.grgit.auth.command.allow=true<
 </div>
 </div>
 <div class="sect2">
-<h3 id="_using_a_specific_ssh_key">Using a specific SSH key</h3>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-This is not used when <code>org.ajoberstar.grgit.auth.command.allow=true</code> is set.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Set the system properties:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>groovy -Dorg.ajoberstar.grgit.auth.ssh.private=/my/secret/key -Dorg.ajoberstar.grgit.auth.ssh.passphrase=mysecretpassword myscript.groovy</pre>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_using_ssh_agent">Using ssh-agent</h3>
 <div class="paragraph">
 <p>Make sure your ssh-agent is started and your key is loaded. Then just run your application or script.</p>
@@ -367,7 +206,7 @@ This is not used when <code>org.ajoberstar.grgit.auth.command.allow=true</code> 
 </div>
 </div>
 </div></section>
-            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-authentication.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-authentication.adoc" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
           </article>
         </div>
       </main>

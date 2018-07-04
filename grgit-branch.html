@@ -18,13 +18,13 @@
         <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
-            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/grgit-core/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
         <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
-          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/grgit-core/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--blue-grey-100">
@@ -79,19 +79,19 @@ grgit.branch.list(mode: &lt;mode&gt;, contains: &lt;commit&gt;)</code></pre>
 <dl>
 <dt class="hdlist1"><code>grgit.branch.current()</code></dt>
 <dd>
-<p>Returns the current <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
+<p>Returns the current <a href="http://ajoberstar.org/grgit/docs/grgit-core/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
 </dd>
 <dt class="hdlist1"><code>grgit.branch.list()</code></dt>
 <dd>
-<p>Returns a list of branches (<a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>). The branches returned can be filtered using <code>mode</code> and <code>contains</code>.</p>
+<p>Returns a list of branches (<a href="http://ajoberstar.org/grgit/docs/grgit-core/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>). The branches returned can be filtered using <code>mode</code> and <code>contains</code>.</p>
 </dd>
 <dt class="hdlist1"><code>grgit.branch.add(name: &lt;name&gt;, startPoint: &lt;startPoint&gt;, mode: &lt;mode&gt;)</code></dt>
 <dd>
-<p>Creates a new branch named <code>&lt;name&gt;</code> pointing at <code>&lt;startPoint&gt;</code>, possibly tracking a remote depending on <code>&lt;mode&gt;</code>. Returns the created <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
+<p>Creates a new branch named <code>&lt;name&gt;</code> pointing at <code>&lt;startPoint&gt;</code>, possibly tracking a remote depending on <code>&lt;mode&gt;</code>. Returns the created <a href="http://ajoberstar.org/grgit/docs/grgit-core/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
 </dd>
 <dt class="hdlist1"><code>grgit.branch.change(name: &lt;name&gt;, startPoint: &lt;startPoint&gt;, mode: &lt;mode&gt;)</code></dt>
 <dd>
-<p>Modify an existing branch named <code>&lt;name&gt;</code> pointing at <code>&lt;startPoint&gt;</code>, possibly tracking a remote depending on <code>&lt;mode&gt;</code>. Returns the modified <a href="http://ajoberstar.org/grgit/docs/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
+<p>Modify an existing branch named <code>&lt;name&gt;</code> pointing at <code>&lt;startPoint&gt;</code>, possibly tracking a remote depending on <code>&lt;mode&gt;</code>. Returns the modified <a href="http://ajoberstar.org/grgit/docs/grgit-core/groovydoc/org/ajoberstar/grgit/Branch.html">Branch</a>.</p>
 </dd>
 <dt class="hdlist1"><code>grgit.branch.remove(names: [&lt;name&gt;, &#8230;&#8203;], force: &lt;boolean&gt;)</code></dt>
 <dd>
@@ -335,7 +335,7 @@ def branches = grgit.branch.list(mode: BranchListOp.Mode.LOCAL)</code></pre>
 </div>
 </div>
 </div></section>
-            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-branch.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-branch.adoc" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
           </article>
         </div>
       </main>

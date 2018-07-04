@@ -18,13 +18,13 @@
         <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
-            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/grgit-core/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
         <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
-          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/grgit-core/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--blue-grey-100">
@@ -44,6 +44,50 @@
 <div class="sect1">
 <h2 id="_where_do_i_get_grgit">Where do I get Grgit?</h2>
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As of Grgit 3, the coordinates for the library have changed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Instead of:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>org.ajoberstar:grgit:&lt;version&gt;</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use one of:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>org.ajoberstar.grgit:grgit-core:&lt;version&gt;</p>
+</li>
+<li>
+<p>org.ajoberstar.grgit:grgit-gradle:&lt;version&gt;</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Gradle plugin ID <strong>has not</strong> changed. It is still <code>org.ajoberstar.grgit</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>To use Grgit as a library, add a dependency on it to <a href="https://bintray.com/bintray/jcenter">JCenter</a>. Available versions can be found in the <a href="https://github.com/ajoberstar/grgit/releases">release notes</a>.</p>
 </div>
@@ -55,7 +99,7 @@
 }
 
 dependencies {
-  compile 'org.ajoberstar:grgit:&lt;version&gt;'
+  compile 'org.ajoberstar.grgit:grgit-core:&lt;version&gt;'
 }</code></pre>
 </div>
 </div>
@@ -65,8 +109,8 @@ dependencies {
 <pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;!-- make sure you've specified JCenter in your repositories --&gt;
 &lt;dependencies&gt;
   &lt;dependency&gt;
-    &lt;group&gt;org.ajoberstar&lt;/group&gt;
-    &lt;artifactId&gt;grgit&lt;/artifactId&gt;
+    &lt;group&gt;org.ajoberstar.grgit&lt;/group&gt;
+    &lt;artifactId&gt;grgit-core&lt;/artifactId&gt;
     &lt;version&gt;...&lt;/version&gt;
   &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
@@ -148,7 +192,7 @@ grgit.close()</code></pre>
 </div>
 </div>
 </div></section>
-            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/index.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/index.adoc" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
           </article>
         </div>
       </main>

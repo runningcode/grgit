@@ -18,13 +18,13 @@
         <div class="mdl-layout__header-row"><span class="mdl-layout-title">Grgit</span>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation mdl-layout--large-screen-only"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
-            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+            <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/grgit-core/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer"><span class="mdl-layout-title">Grgit</span>
         <nav class="mdl-navigation"><a href="index.html" class="mdl-navigation__link">Home</a><a href="grgit-reference.html" class="mdl-navigation__link">Reference</a>
-          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
+          <!-- a.mdl-navigation__link(href='#{content.rootpath}docs/javadoc/index.html') JavaDoc--><a href="docs/grgit-core/groovydoc/index.html" class="mdl-navigation__link">GroovyDoc</a><a href="https://github.com/ajoberstar/grgit" class="mdl-navigation__link">GitHub</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--blue-grey-100">
@@ -51,7 +51,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.describe(commit: &lt;commit&gt;, longDescr: &lt;boolean&gt;, match: [&lt;string&gt;])</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.describe(commit: &lt;commit&gt;, longDescr: &lt;boolean&gt;, tags: &lt;boolean&gt;, match: [&lt;string&gt;])</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -59,6 +59,7 @@
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.describe {
   commit = &lt;commit&gt;
   longDescr = &lt;boolean&gt;
+  tags = &lt;boolean&gt;
   match = [&lt;string&gt;]
 }</code></pre>
 </div>
@@ -88,6 +89,10 @@
 <dt class="hdlist1">longDescr</dt>
 <dd>
 <p>(<code>boolean</code>, default <code>false</code>) Always output the long format (the tag, the number of commits and the abbreviated commit name) even when it matches a tag. This is useful when you want to see parts of the commit object name in "describe" output, even when the commit in question happens to be a tagged version. Instead of just emitting the tag name, it will describe such a commit as v1.2-0-gdeadbee (0th commit since tag v1.2 that points at object deadbee…​.).</p>
+</dd>
+<dt class="hdlist1">tags</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) Instead of using only the annotated tags, use any tag found in <code>refs/tags</code> namespace. This option enables matching a lightweight (non-annotated) tag.</p>
 </dd>
 <dt class="hdlist1">match</dt>
 <dd>
@@ -138,7 +143,7 @@
 </div>
 </div>
 </div></section>
-            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-describe.ad" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
+            <section class="mdl-card__actions mdl-card--border"><a href="https://github.com/ajoberstar/grgit/edit/master/docs/content/grgit-describe.adoc" class="mdl-button mdl-js-button mdl-button--colored">Edit Page</a></section>
           </article>
         </div>
       </main>
