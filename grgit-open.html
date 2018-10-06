@@ -51,7 +51,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.open(dir: &lt;path&gt;, currentDir: &lt;path&gt;, creds: &lt;credentials&gt;)</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.open(dir: &lt;path&gt;, currentDir: &lt;path&gt;, credentials: &lt;credentials&gt;)</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -59,7 +59,7 @@
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.open {
   dir = &lt;path&gt;
   currentDir = &lt;path&gt;
-  creds = &lt;credentals&gt;
+  credentials = &lt;credentals&gt;
 }</code></pre>
 </div>
 </div>
@@ -89,7 +89,7 @@
 <dd>
 <p>(<code>Object</code>, default <code>null</code>) The directory to start searching for the repository from. Can be a <code>File</code>, <code>Path</code>, or <code>String</code>.</p>
 </dd>
-<dt class="hdlist1">creds</dt>
+<dt class="hdlist1">credentials</dt>
 <dd>
 <p>(<code>Credentials</code>, default <code>null</code>) An instance of <a href="http://ajoberstar.org/grgit/docs/grgit-core/groovydoc/org/ajoberstar/grgit/Credentials.html">Credentials</a> containing username/password to be used in operations that require authentication. See <a href="grgit-authentication.html">grgit-authentication</a> for preferred ways to configure this.</p>
 </dd>
