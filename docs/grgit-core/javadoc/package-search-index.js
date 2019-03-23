@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.ajoberstar.grgit"},{"l":"org.ajoberstar.grgit.auth"},{"l":"org.ajoberstar.grgit.internal"}]
