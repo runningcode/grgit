@@ -1,6 +1,7 @@
 plugins {
   id 'java-library'
   id 'groovy'
+  id 'jacoco'
 }
 
 repositories {
@@ -19,6 +20,9 @@ dependencies {
   // logging
   testImplementation 'org.slf4j:slf4j-api:latest.release'
   testRuntime 'org.slf4j:slf4j-simple:latest.release'
+
+  // util
+  implementation 'org.apache.commons:commons-lang3:latest.release'
 
   // testing
   testImplementation 'junit:junit:latest.release'

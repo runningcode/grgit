@@ -58,7 +58,7 @@ class BranchStatusOpSpec extends MultiGitOpSpec {
     localGrgit.branch.status(name: branch) == status
     where:
     branch		| status
-    'up-to-date'  | new BranchStatus(branch: GitTestUtil.branch('refs/heads/up-to-date', 'refs/remotes/origin/up-to-date'), aheadCount: 0, behindCount: 0)
-    'out-of-date' | new BranchStatus(branch: GitTestUtil.branch('refs/heads/out-of-date', 'refs/remotes/origin/out-of-date'), aheadCount: 2, behindCount: 1)
+    'up-to-date'  | new BranchStatus(GitTestUtil.branch('refs/heads/up-to-date', 'refs/remotes/origin/up-to-date'), 0, 0)
+    'out-of-date' | new BranchStatus(GitTestUtil.branch('refs/heads/out-of-date', 'refs/remotes/origin/out-of-date'), 2, 1)
   }
 }

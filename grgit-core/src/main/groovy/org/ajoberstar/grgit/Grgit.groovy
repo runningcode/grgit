@@ -1,6 +1,6 @@
 package org.ajoberstar.grgit
 
-import org.ajoberstar.grgit.internal.WithOperations
+import org.ajoberstar.grgit.internal.WithOperation
 import org.ajoberstar.grgit.operation.*
 import org.ajoberstar.grgit.service.*
 import org.ajoberstar.grgit.util.JGitUtil
@@ -95,7 +95,26 @@ import org.ajoberstar.grgit.util.JGitUtil
  *
  * @since 0.1.0
  */
-@WithOperations(staticOperations=[InitOp, CloneOp, OpenOp], instanceOperations=[CleanOp, StatusOp, AddOp, RmOp, ResetOp, ApplyOp, PullOp, PushOp, FetchOp, LsRemoteOp, CheckoutOp, LogOp, CommitOp, RevertOp, MergeOp, DescribeOp, ShowOp])
+@WithOperation(name = 'init', implementation = InitOp, isStatic = true)
+@WithOperation(name = 'clone', implementation = CloneOp, isStatic = true)
+@WithOperation(name = 'open', implementation = OpenOp, isStatic = true)
+@WithOperation(name = 'clean', implementation = CleanOp)
+@WithOperation(name = 'status', implementation = StatusOp)
+@WithOperation(name = 'add', implementation = AddOp)
+@WithOperation(name = 'remove', implementation = RmOp)
+@WithOperation(name = 'reset', implementation = ResetOp)
+@WithOperation(name = 'apply', implementation = ApplyOp)
+@WithOperation(name = 'pull', implementation = PullOp)
+@WithOperation(name = 'push', implementation = PushOp)
+@WithOperation(name = 'fetch', implementation = FetchOp)
+@WithOperation(name = 'lsremote', implementation = LsRemoteOp)
+@WithOperation(name = 'checkout', implementation = CheckoutOp)
+@WithOperation(name = 'log', implementation = LogOp)
+@WithOperation(name = 'commit', implementation = CommitOp)
+@WithOperation(name = 'revert', implementation = RevertOp)
+@WithOperation(name = 'merge', implementation = MergeOp)
+@WithOperation(name = 'describe', implementation = DescribeOp)
+@WithOperation(name = 'show', implementation = ShowOp)
 class Grgit implements AutoCloseable {
   /**
    * The repository opened by this object.
@@ -122,7 +141,7 @@ class Grgit implements AutoCloseable {
    */
   final TagService tag
 
-  private Grgit(Repository repository) {
+  Grgit(Repository repository) {
     this.repository = repository
     this.branch = new BranchService(repository)
     this.remote = new RemoteService(repository)

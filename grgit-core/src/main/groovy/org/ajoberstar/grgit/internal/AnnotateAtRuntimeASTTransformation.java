@@ -18,7 +18,7 @@ public final class AnnotateAtRuntimeASTTransformation extends AbstractASTTransfo
     AnnotatedNode parent = (AnnotatedNode) nodes[1];
 
     ClassNode clazz = (ClassNode) parent;
-    List<String> annotations = getMemberList(annotation, "annotations");
+    List<String> annotations = getMemberStringList(annotation, "annotations");
     for (String name : annotations) {
       // !!! UGLY HACK !!!
       // Groovy won't think the class is an annotation when creating a ClassNode just based on the name.

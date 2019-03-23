@@ -16,10 +16,7 @@ class RemoteListOpSpec extends MultiGitOpSpec {
 
     expect:
     localGrgit.remote.list() == [
-      new Remote(
-        name: 'origin',
-        url: remoteGrgit.repository.rootDir.canonicalFile.toPath().toUri(),
-        fetchRefSpecs: ['+refs/heads/*:refs/remotes/origin/*'])
+      new Remote('origin', remoteGrgit.repository.rootDir.canonicalFile.toPath().toUri().toString(), null, ['+refs/heads/*:refs/remotes/origin/*'], [], false)
     ]
   }
 }

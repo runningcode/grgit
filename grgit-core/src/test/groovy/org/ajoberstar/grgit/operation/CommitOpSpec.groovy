@@ -35,7 +35,7 @@ class CommitOpSpec extends SimpleGitOpSpec {
     then:
     grgit.log().size() == 2
     grgit.status() == new Status(
-      unstaged: [added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']])
+      unstaged: new Status.Changes(added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']))
   }
 
   def 'commit with all true commits changes in previously tracked files'() {
@@ -44,7 +44,7 @@ class CommitOpSpec extends SimpleGitOpSpec {
     then:
     grgit.log().size() == 2
     grgit.status() == new Status(
-      unstaged: [added: ['folderB/2.txt']])
+      unstaged: new Status.Changes(added: ['folderB/2.txt']))
   }
 
   def 'commit amend changes the previous commit'() {
@@ -55,7 +55,7 @@ class CommitOpSpec extends SimpleGitOpSpec {
     then:
     grgit.log().size() == 1
     grgit.status() == new Status(
-      unstaged: [added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']])
+      unstaged: new Status.Changes(added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']))
   }
 
   def 'commit with paths only includes the specified paths from the index'() {
@@ -66,7 +66,7 @@ class CommitOpSpec extends SimpleGitOpSpec {
     then:
     grgit.log().size() == 2
     grgit.status() == new Status(
-      staged: [added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']])
+      staged: new Status.Changes(added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']))
   }
 
   def 'commit without specific committer or author uses repo config'() {
@@ -79,7 +79,7 @@ class CommitOpSpec extends SimpleGitOpSpec {
     commit.author == new Person('Alfred Pennyworth', 'alfred.pennyworth@wayneindustries.com')
     grgit.log().size() == 2
     grgit.status() == new Status(
-      unstaged: [added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']])
+      unstaged: new Status.Changes(added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']))
   }
 
   def 'commit with specific committer and author uses those'() {
@@ -98,6 +98,6 @@ class CommitOpSpec extends SimpleGitOpSpec {
     commit.author == bruce
     grgit.log().size() == 2
     grgit.status() == new Status(
-      unstaged: [added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']])
+      unstaged: new Status.Changes(added: ['folderB/2.txt'], modified: ['1.txt', 'folderB/1.txt']))
   }
 }

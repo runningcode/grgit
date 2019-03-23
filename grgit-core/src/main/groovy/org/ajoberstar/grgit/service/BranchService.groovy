@@ -2,7 +2,7 @@ package org.ajoberstar.grgit.service
 
 import org.ajoberstar.grgit.Branch
 import org.ajoberstar.grgit.Repository
-import org.ajoberstar.grgit.internal.WithOperations
+import org.ajoberstar.grgit.internal.WithOperation
 import org.ajoberstar.grgit.operation.*
 import org.ajoberstar.grgit.util.JGitUtil
 import org.eclipse.jgit.lib.Ref
@@ -28,7 +28,11 @@ import org.eclipse.jgit.lib.Ref
  * @since 0.2.0
  * @see <a href="http://ajoberstar.org/grgit/grgit-branch.html">grgit-branch</a>
  */
-@WithOperations(instanceOperations=[BranchListOp, BranchAddOp, BranchRemoveOp, BranchChangeOp, BranchStatusOp])
+@WithOperation(name='list', implementation=BranchListOp)
+@WithOperation(name='add', implementation=BranchAddOp)
+@WithOperation(name='remove', implementation=BranchRemoveOp)
+@WithOperation(name='change', implementation=BranchChangeOp)
+@WithOperation(name='status', implementation=BranchStatusOp)
 class BranchService {
   private final Repository repository
 

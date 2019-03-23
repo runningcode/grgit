@@ -1,9 +1,9 @@
 package org.ajoberstar.grgit.service
 
 import org.ajoberstar.grgit.Repository
-import org.ajoberstar.grgit.internal.WithOperations
 import org.ajoberstar.grgit.operation.RemoteAddOp
 import org.ajoberstar.grgit.operation.RemoteListOp
+import org.ajoberstar.grgit.internal.WithOperation
 
 /**
  * Provides support for remote-related operations on a Git repository.
@@ -19,7 +19,8 @@ import org.ajoberstar.grgit.operation.RemoteListOp
  *   <li>{@link org.ajoberstar.grgit.operation.RemoteListOp list}</li>
  * </ul>
  */
-@WithOperations(instanceOperations=[RemoteListOp, RemoteAddOp])
+@WithOperation(name='list', implementation= RemoteListOp)
+@WithOperation(name='add', implementation=RemoteAddOp)
 class RemoteService {
   private final Repository repository
 

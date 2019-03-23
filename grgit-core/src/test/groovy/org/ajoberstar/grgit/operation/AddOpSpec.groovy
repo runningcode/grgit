@@ -13,8 +13,8 @@ class AddOpSpec extends SimpleGitOpSpec {
     grgit.add(patterns:['1.txt'])
     then:
     grgit.status() == new Status(
-      staged: [added: ['1.txt']],
-      unstaged: [added: ['2.txt', 'test/3.txt']]
+      staged: new Status.Changes(added: ['1.txt']),
+      unstaged: new Status.Changes(added: ['2.txt', 'test/3.txt'])
     )
   }
 
@@ -29,8 +29,8 @@ class AddOpSpec extends SimpleGitOpSpec {
     grgit.add(patterns:['test'])
     then:
     grgit.status() == new Status(
-      staged: [added: ['test/3.txt', 'test/4.txt', 'test/other/5.txt']],
-      unstaged: [added: ['1.txt', 'something/2.txt']]
+      staged: new Status.Changes(added: ['test/3.txt', 'test/4.txt', 'test/other/5.txt']),
+      unstaged: new Status.Changes(added: ['1.txt', 'something/2.txt'])
     )
   }
 
@@ -45,7 +45,7 @@ class AddOpSpec extends SimpleGitOpSpec {
     grgit.add(patterns:['**/*.txt'])
     then:
     grgit.status() == new Status(
-      unstaged: [added: ['1.bat', 'test/3.bat', 'something/2.txt', 'test/4.txt', 'test/other/5.txt']]
+      unstaged: new Status.Changes(added: ['1.bat', 'test/3.bat', 'something/2.txt', 'test/4.txt', 'test/other/5.txt'])
     )
     /*
      * TODO: get it to work like this
@@ -70,8 +70,8 @@ class AddOpSpec extends SimpleGitOpSpec {
     grgit.add(patterns:['.'], update:true)
     then:
     grgit.status() == new Status(
-      staged: [modified: ['1.bat', 'something/2.txt'], removed: ['test/3.bat']],
-      unstaged: [added: ['test/4.txt', 'test/other/5.txt']]
+      staged: new Status.Changes(modified: ['1.bat', 'something/2.txt'], removed: ['test/3.bat']),
+      unstaged: new Status.Changes(added: ['test/4.txt', 'test/other/5.txt'])
     )
   }
 }

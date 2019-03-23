@@ -1,6 +1,7 @@
 plugins {
   id 'org.ajoberstar.defaults' version '0.14.2'
   id 'org.jbake.site' version '5.0.0'
+  id 'org.sonarqube' version '2.7'
 }
 
 apply from: 'gradle/locking.gradle'

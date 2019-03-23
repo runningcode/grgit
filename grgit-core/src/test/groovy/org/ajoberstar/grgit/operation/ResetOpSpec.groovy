@@ -31,8 +31,8 @@ class ResetOpSpec extends SimpleGitOpSpec {
     then:
     commits[0] == grgit.head()
     grgit.status() == new Status(
-      staged: [modified: ['1.bat', 'test/3.bat', 'something/2.txt']],
-      unstaged: [modified: ['test/4.txt', 'test/other/5.txt']]
+      staged: new Status.Changes(modified: ['1.bat', 'test/3.bat', 'something/2.txt']),
+      unstaged: new Status.Changes(modified: ['test/4.txt', 'test/other/5.txt'])
     )
   }
 
@@ -42,7 +42,7 @@ class ResetOpSpec extends SimpleGitOpSpec {
     then:
     commits[0] == grgit.head()
     grgit.status() == new Status(
-      unstaged: [modified: ['1.bat', 'test/3.bat', 'test/4.txt', 'something/2.txt', 'test/other/5.txt']])
+      unstaged: new Status.Changes(modified: ['1.bat', 'test/3.bat', 'test/4.txt', 'something/2.txt', 'test/other/5.txt']))
   }
 
   def 'reset hard changes HEAD, index, and working tree'() {
@@ -59,8 +59,8 @@ class ResetOpSpec extends SimpleGitOpSpec {
     then:
     commits[1] == grgit.head()
     grgit.status() == new Status(
-      staged: [modified: ['1.bat']],
-      unstaged: [modified: ['test/4.txt', 'something/2.txt', 'test/other/5.txt']]
+      staged: new Status.Changes(modified: ['1.bat']),
+      unstaged: new Status.Changes(modified: ['test/4.txt', 'something/2.txt', 'test/other/5.txt'])
     )
   }
 

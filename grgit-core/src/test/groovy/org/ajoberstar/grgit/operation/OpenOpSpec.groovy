@@ -63,7 +63,7 @@ class OpenOpSpec extends SimpleGitOpSpec {
     opened.add(patterns: [FILE_PATH])
     then:
     opened.head() == commit
-    opened.status() == new Status(staged: [modified: [FILE_PATH]])
+    opened.status() == new Status(staged: new Status.Changes(modified: [FILE_PATH]))
   }
 
   @RestoreSystemProperties
@@ -75,7 +75,7 @@ class OpenOpSpec extends SimpleGitOpSpec {
     repoFile(FILE_PATH) << '1.2'
     then:
     opened.head() == commit
-    opened.status() == new Status(unstaged: [modified: [FILE_PATH]])
+    opened.status() == new Status(unstaged: new Status.Changes(modified: [FILE_PATH]))
   }
 
   @RestoreSystemProperties
@@ -96,7 +96,7 @@ class OpenOpSpec extends SimpleGitOpSpec {
     Grgit opened = Grgit.open()
     then:
     opened.head() == commit
-    opened.status() == new Status(unstaged: [modified: [FILE_PATH]])
+    opened.status() == new Status(unstaged: new Status.Changes(modified: [FILE_PATH]))
   }
 
   @RestoreSystemProperties
@@ -117,7 +117,7 @@ class OpenOpSpec extends SimpleGitOpSpec {
     Grgit opened = Grgit.open()
     then:
     opened.head() == commit
-    opened.status() == new Status(unstaged: [modified: [FILE_PATH]])
+    opened.status() == new Status(unstaged: new Status.Changes(modified: [FILE_PATH]))
   }
 
   def 'open with currentDir succeeds if current directory is subdir of a repo'() {
@@ -126,7 +126,7 @@ class OpenOpSpec extends SimpleGitOpSpec {
     repoFile(FILE_PATH) << '1.2'
     then:
     opened.head() == commit
-    opened.status() == new Status(unstaged: [modified: [FILE_PATH]])
+    opened.status() == new Status(unstaged: new Status.Changes(modified: [FILE_PATH]))
   }
 
   def 'opened repo can be deleted after being closed'() {

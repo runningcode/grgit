@@ -1,15 +1,14 @@
 package org.ajoberstar.grgit.operation
 
-import java.util.concurrent.Callable
-
 import org.ajoberstar.grgit.Credentials
 import org.ajoberstar.grgit.Grgit
 import org.ajoberstar.grgit.Repository
 import org.ajoberstar.grgit.auth.TransportOpUtil
-import org.ajoberstar.grgit.internal.Operation
 import org.ajoberstar.grgit.util.CoercionUtil
 import org.eclipse.jgit.api.CloneCommand
 import org.eclipse.jgit.api.Git
+
+import java.util.concurrent.Callable
 
 /**
  * Clones an existing repository. Returns a {@link Grgit} pointing
@@ -18,7 +17,6 @@ import org.eclipse.jgit.api.Git
  * @see <a href="http://ajoberstar.org/grgit/grgit-clone.html">grgit-clone</a>
  * @see <a href="http://git-scm.com/docs/git-clone">git-clone Manual Reference.</a>
  */
-@Operation('clone')
 class CloneOp implements Callable<Grgit> {
   /**
    * The directory to put the cloned repository.

@@ -20,7 +20,7 @@ class RmOpSpec extends SimpleGitOpSpec {
     when:
     grgit.remove(patterns:['1.bat'])
     then:
-    grgit.status() == new Status(staged: [removed: paths])
+    grgit.status() == new Status(staged: new Status.Changes(removed: paths))
     paths.every { !repoFile(it).exists() }
   }
 
@@ -30,7 +30,7 @@ class RmOpSpec extends SimpleGitOpSpec {
     when:
     grgit.remove(patterns:['test'])
     then:
-    grgit.status() == new Status(staged: [removed: paths])
+    grgit.status() == new Status(staged: new Status.Changes(removed: paths))
     paths.every { !repoFile(it).exists() }
   }
 
@@ -54,7 +54,7 @@ class RmOpSpec extends SimpleGitOpSpec {
     when:
     grgit.remove(patterns:['something'], cached:true)
     then:
-    grgit.status() == new Status(staged: [removed: paths], unstaged: [added: paths])
+    grgit.status() == new Status(staged: new Status.Changes(removed: paths), unstaged: new Status.Changes(added: paths))
     paths.every { repoFile(it).exists() }
   }
 }

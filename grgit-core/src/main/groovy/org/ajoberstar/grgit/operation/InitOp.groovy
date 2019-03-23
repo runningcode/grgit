@@ -1,13 +1,12 @@
 package org.ajoberstar.grgit.operation
 
-import java.util.concurrent.Callable
-
 import org.ajoberstar.grgit.Grgit
 import org.ajoberstar.grgit.Repository
-import org.ajoberstar.grgit.internal.Operation
 import org.ajoberstar.grgit.util.CoercionUtil
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.InitCommand
+
+import java.util.concurrent.Callable
 
 /**
  * Initializes a new repository. Returns a {@link Grgit} pointing
@@ -16,7 +15,6 @@ import org.eclipse.jgit.api.InitCommand
  * @see <a href="http://ajoberstar.org/grgit/grgit-init.html">grgit-init</a>
  * @see <a href="http://git-scm.com/docs/git-init">git-init Manual Reference.</a>
  */
-@Operation('init')
 class InitOp implements Callable<Grgit> {
   /**
    * {@code true} if the repository should not have a

@@ -84,7 +84,7 @@ class CheckoutOpSpec extends SimpleGitOpSpec {
     grgit.checkout(branch: 'orphan-branch', orphan: true)
     then:
     grgit.branch.current.fullName == 'refs/heads/orphan-branch'
-    grgit.status() == new Status(staged: [added: ['1.txt']])
+    grgit.status() == new Status(staged: new Status.Changes(added: ['1.txt']))
     repoFile('1.txt').text == '123'
   }
 
@@ -93,7 +93,7 @@ class CheckoutOpSpec extends SimpleGitOpSpec {
     grgit.checkout(branch: 'orphan-branch', orphan: true, startPoint: 'my-branch')
     then:
     grgit.branch.current.fullName == 'refs/heads/orphan-branch'
-    grgit.status() == new Status(staged: [added: ['1.txt']])
+    grgit.status() == new Status(staged: new Status.Changes(added: ['1.txt']))
     repoFile('1.txt').text == '12'
   }
 
