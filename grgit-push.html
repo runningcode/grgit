@@ -52,7 +52,8 @@
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.push(remote: '&lt;name or uri&gt;', refsOrSpecs: [&lt;ref or refspec&gt;, ...],
-  all: &lt;boolean&gt;, tags: &lt;boolean&gt;, force: &lt;boolean&gt;, dryRun: &lt;boolean&gt;)</code></pre>
+  all: &lt;boolean&gt;, tags: &lt;boolean&gt;, force: &lt;boolean&gt;, dryRun: &lt;boolean&gt;),
+  pushOptions: [&lt;string&gt;, ...]</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -64,6 +65,7 @@
   tags = &lt;boolean&gt;
   force = &lt;boolean&gt;
   dryRun = &lt;boolean&gt;
+  pushOptions = [&lt;string&gt;, ...]
 }</code></pre>
 </div>
 </div>
@@ -126,6 +128,10 @@
 <dt class="hdlist1">dryRun</dt>
 <dd>
 <p>(<code>boolean</code>, default <code>false</code>) Do everything except actually send the updates.</p>
+</dd>
+<dt class="hdlist1">pushOptions</dt>
+<dd>
+<p>(<code>List&lt;String&gt;</code>, default <code>[]</code>) Transmit the given string to the server, which passes them to the pre-receive as well as the post-receive hook. The given string must not contain a NUL or LF character. When multiple <code>pushOptions</code> are given, they are all sent to the other side in the order listed. When no <code>pushOptions</code> is given, the values of configuration variable <code>push.pushOption</code> are used instead.</p>
 </dd>
 </dl>
 </div>
