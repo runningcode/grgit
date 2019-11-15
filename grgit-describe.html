@@ -51,7 +51,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.describe(commit: &lt;commit&gt;, longDescr: &lt;boolean&gt;, tags: &lt;boolean&gt;, match: [&lt;string&gt;])</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">grgit.describe(commit: &lt;commit&gt;, longDescr: &lt;boolean&gt;, tags: &lt;boolean&gt;, match: [&lt;string&gt;], always: &lt;boolean&gt;)</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -61,6 +61,7 @@
   longDescr = &lt;boolean&gt;
   tags = &lt;boolean&gt;
   match = [&lt;string&gt;]
+  always = &lt;boolean&gt;
 }</code></pre>
 </div>
 </div>
@@ -85,6 +86,10 @@
 <dt class="hdlist1">commit</dt>
 <dd>
 <p>(<code>Object</code>, default <code>null</code>) Commit-ish object names to describe. Defaults to HEAD if omitted. For a more complete list of ways to spell commit names, see <a href="grgit-resolve.html">grgit-resolve</a> (specifically the <code>toCommit</code> method).</p>
+</dd>
+<dt class="hdlist1">always</dt>
+<dd>
+<p>(<code>boolean</code>, default <code>false</code>) When <code>true</code>, always describe a commit in some way and fall back to a uniquely abbreviated commit if no tags match.</p>
 </dd>
 <dt class="hdlist1">longDescr</dt>
 <dd>
